@@ -23,6 +23,8 @@ import { Route as MemoryAssetIdRouteImport } from './routes/memory.$assetId'
 import { Route as MissionsIndexRouteImport } from './routes/missions.index'
 import { Route as MissionsIdRouteImport } from './routes/missions.$id'
 import { Route as TicketIdRouteImport } from './routes/ticket.$id'
+import { Route as WorkspacesIndexRouteImport } from './routes/workspaces.index'
+import { Route as WorkspacesIdRouteImport } from './routes/workspaces.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -94,6 +96,16 @@ const TicketIdRoute = TicketIdRouteImport.update({
   path: '/ticket/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkspacesIndexRoute = WorkspacesIndexRouteImport.update({
+  id: '/workspaces/',
+  path: '/workspaces/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkspacesIdRoute = WorkspacesIdRouteImport.update({
+  id: '/workspaces/$id',
+  path: '/workspaces/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -108,8 +120,10 @@ export interface FileRoutesByFullPath {
   '/memory/$assetId': typeof MemoryAssetIdRoute
   '/missions/$id': typeof MissionsIdRoute
   '/ticket/$id': typeof TicketIdRoute
+  '/workspaces/$id': typeof WorkspacesIdRoute
   '/memory/': typeof MemoryIndexRoute
   '/missions/': typeof MissionsIndexRoute
+  '/workspaces/': typeof WorkspacesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -124,8 +138,10 @@ export interface FileRoutesByTo {
   '/memory/$assetId': typeof MemoryAssetIdRoute
   '/missions/$id': typeof MissionsIdRoute
   '/ticket/$id': typeof TicketIdRoute
+  '/workspaces/$id': typeof WorkspacesIdRoute
   '/memory': typeof MemoryIndexRoute
   '/missions': typeof MissionsIndexRoute
+  '/workspaces': typeof WorkspacesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -141,8 +157,10 @@ export interface FileRoutesById {
   '/memory/$assetId': typeof MemoryAssetIdRoute
   '/missions/$id': typeof MissionsIdRoute
   '/ticket/$id': typeof TicketIdRoute
+  '/workspaces/$id': typeof WorkspacesIdRoute
   '/memory/': typeof MemoryIndexRoute
   '/missions/': typeof MissionsIndexRoute
+  '/workspaces/': typeof WorkspacesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -159,8 +177,10 @@ export interface FileRouteTypes {
     | '/memory/$assetId'
     | '/missions/$id'
     | '/ticket/$id'
+    | '/workspaces/$id'
     | '/memory/'
     | '/missions/'
+    | '/workspaces/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -175,8 +195,10 @@ export interface FileRouteTypes {
     | '/memory/$assetId'
     | '/missions/$id'
     | '/ticket/$id'
+    | '/workspaces/$id'
     | '/memory'
     | '/missions'
+    | '/workspaces'
   id:
     | '__root__'
     | '/'
@@ -191,8 +213,10 @@ export interface FileRouteTypes {
     | '/memory/$assetId'
     | '/missions/$id'
     | '/ticket/$id'
+    | '/workspaces/$id'
     | '/memory/'
     | '/missions/'
+    | '/workspaces/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -208,8 +232,10 @@ export interface RootRouteChildren {
   MemoryAssetIdRoute: typeof MemoryAssetIdRoute
   MissionsIdRoute: typeof MissionsIdRoute
   TicketIdRoute: typeof TicketIdRoute
+  WorkspacesIdRoute: typeof WorkspacesIdRoute
   MemoryIndexRoute: typeof MemoryIndexRoute
   MissionsIndexRoute: typeof MissionsIndexRoute
+  WorkspacesIndexRoute: typeof WorkspacesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -312,6 +338,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TicketIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/workspaces/': {
+      id: '/workspaces/'
+      path: '/workspaces'
+      fullPath: '/workspaces/'
+      preLoaderRoute: typeof WorkspacesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workspaces/$id': {
+      id: '/workspaces/$id'
+      path: '/workspaces/$id'
+      fullPath: '/workspaces/$id'
+      preLoaderRoute: typeof WorkspacesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -328,8 +368,10 @@ const rootRouteChildren: RootRouteChildren = {
   MemoryAssetIdRoute: MemoryAssetIdRoute,
   MissionsIdRoute: MissionsIdRoute,
   TicketIdRoute: TicketIdRoute,
+  WorkspacesIdRoute: WorkspacesIdRoute,
   MemoryIndexRoute: MemoryIndexRoute,
   MissionsIndexRoute: MissionsIndexRoute,
+  WorkspacesIndexRoute: WorkspacesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
