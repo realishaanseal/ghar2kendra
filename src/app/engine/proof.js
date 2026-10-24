@@ -98,7 +98,8 @@ export const STAGE_COPY = {
 
 /**
  * Has this defect been repaired here before? Looks for the most recent repair of the
- * same family within REVIEW_LINK_M and RELINK_WINDOW_DAYS before the new report.
+ * same category within REVIEW_LINK_M and RELINK_WINDOW_DAYS before the new report.
+ * (Exact category, not family: a broken footpath is not a recurrence of a manhole repair.)
  */
 export function findPreviousRepair(issue, issues, now = new Date()) {
   const reported = reportedAt(issue, now);
@@ -106,7 +107,7 @@ export function findPreviousRepair(issue, issues, now = new Date()) {
   for (const other of issues) {
     if (other.id === issue.id) continue;
     if (other.status !== 'resolved' && other.status !== 'verified') continue;
-    if (categoryFamily(other.category) !== categoryFamily(issue.category)) continue;
+    if (other.category !== issue.category) continue;
     const repaired = resolvedAt(other, now);
     if (!repaired || repaired >= reported) continue;
     const days = daysBetween(repaired, reported);
