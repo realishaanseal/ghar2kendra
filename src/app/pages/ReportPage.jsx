@@ -3,6 +3,7 @@ import { Camera, Sparkles, MapPin, CheckCircle2, ArrowLeft, Cpu, Clock, UploadCl
 import { useNavigate, Link } from '@/lib/router-compat';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CivicAPI } from '../api/supabaseClient';
+import { autoLinkRecurrence } from '../api/proofStore';
 
 const SAMPLE_PRESETS = [
   {
@@ -67,6 +68,8 @@ export default function ReportPage({ isDarkMode = true }) {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState('');
+  const [coords, setCoords] = useState(null);
+  const [recurrence, setRecurrence] = useState(null);
 
   // Handle Photo selection from camera / file picker
   const handlePhotoUpload = (e) => {
@@ -133,6 +136,7 @@ export default function ReportPage({ isDarkMode = true }) {
       setAddress('Connecting to GPS satellite & municipal registry...');
       navigator.geolocation.getCurrentPosition(
         async (pos) => {
+          setCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
           try {
             const geo = await CivicAPI.reverseGeocode(pos.coords.latitude, pos.coords.longitude);
             if (geo && geo.address) {
@@ -166,8 +170,11 @@ export default function ReportPage({ isDarkMode = true }) {
       department: department || 'Public Works Dept (PWD)',
       reportedBy: reporterName || 'Citizen Reporter',
       imageUrl: photo || 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=800&auto=format&fit=crop&q=80',
+      ...(coords || {}),
     });
     setTicketId(created.id);
+    // Civic Memory: if this spot was repaired recently, link the new report to that repair.
+    setRecurrence(await autoLinkRecurrence(created));
     setIsSubmitted(true);
   };
 
@@ -241,6 +248,19 @@ export default function ReportPage({ isDarkMode = true }) {
               </span>
             </div>
           </div>
+
+          {recurrence && (
+            <div className="mt-4 rounded-2xl border border-rose-500/40 bg-rose-500/10 p-3 text-left text-xs">
+              <p className="font-black text-rose-500">This spot has been repaired before</p>
+              <p className={`mt-1 ${!isDarkMode ? 'text-slate-700' : 'text-slate-300'}`}>
+                {recurrence.previousIssue.id} was fixed {Math.round(recurrence.daysSinceRepair)} days ago,{' '}
+                {Math.round(recurrence.distanceM)} m away.{' '}
+                {recurrence.mode === 'auto'
+                  ? 'Your report is linked to it as a recurring defect.'
+                  : 'A reviewer will decide whether it is the same defect.'}
+              </p>
+            </div>
+          )}
 
           <div className="flex gap-3">
             <button

@@ -30,6 +30,8 @@ import {
 } from 'lucide-react';
 import { CivicAPI, getClockOffsetHours } from '../api/supabaseClient';
 import { useAuth } from '../context/AuthContext';
+import ProofReviewQueue from '../components/civic/ProofReviewQueue';
+import { clearProof } from '../api/proofStore';
 
 const PRESET_FIX_PHOTOS = [
   {
@@ -236,6 +238,8 @@ export default function AdminDashboard({ isDarkMode }) {
     e.preventDefault();
     if (!resolveModalIssue) return;
 
+    // A new fix claim starts a fresh Proof-of-Resolution round.
+    clearProof(resolveModalIssue.id);
     await CivicAPI.resolveIssueWithProof(resolveModalIssue.id, {
       resolvedPhotoUrl: resolvePhotoUrl,
       resolutionProof: resolveProofNotes,
@@ -243,7 +247,7 @@ export default function AdminDashboard({ isDarkMode }) {
       officerName: selectedOfficer || resolveModalIssue.assignedOfficer || 'Ward Supervisor',
     });
 
-    showToast(`✅ ${resolveModalIssue.id} marked as RESOLVED! Evidence uploaded for citizen verification.`);
+    showToast(`✅ ${resolveModalIssue.id} marked as RESOLVED! Awaiting resident attestations and review.`);
     setResolveModalIssue(null);
     loadIssues();
   };
@@ -618,6 +622,9 @@ export default function AdminDashboard({ isDarkMode }) {
             </div>
           </div>
         </div>
+
+        {/* ================= PROOF-OF-RESOLUTION REVIEW QUEUE ================= */}
+        <ProofReviewQueue issues={issues} isDarkMode={isDarkMode} />
 
         {/* ================= TRIAGE QUEUE & ACTIONS TABLE ================= */}
         <div className={`rounded-3xl border shadow-xl overflow-hidden transition-all duration-300 ${
