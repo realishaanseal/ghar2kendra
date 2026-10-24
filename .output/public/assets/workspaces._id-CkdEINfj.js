@@ -1,1 +1,0 @@
-export{t as component}from"./index-ECR_tonp.js";
