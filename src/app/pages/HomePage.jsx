@@ -3,6 +3,7 @@ import HeroSection from '../components/HeroSection';
 import CategoryPills from '../components/CategoryPills';
 import IssueCard from '../components/IssueCard';
 import CityMap from '../components/CityMap';
+import ModuleStrip from '../components/civic/ModuleStrip';
 import { Map, List, ArrowUpDown, AlertCircle, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CivicAPI } from '../api/supabaseClient';
@@ -69,6 +70,9 @@ export default function HomePage({ isDarkMode = true }) {
 
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        {/* Civic modules: memory, insights, missions, radar, workspaces */}
+        <ModuleStrip isDarkMode={isDarkMode} />
+
 
         {/* Controls Bar */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">

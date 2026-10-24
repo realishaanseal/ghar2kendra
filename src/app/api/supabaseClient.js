@@ -723,6 +723,10 @@ export const Ghar2KendraAPI = {
   resetToDefault() {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     localStorage.removeItem(CLOCK_OFFSET_KEY);
+    // Civic module stores reseed themselves on next read.
+    ['g2k_proofs_v1', 'g2k_missions_v1', 'g2k_radar_places_v1', 'g2k_workspaces_v1'].forEach((key) =>
+      localStorage.removeItem(key)
+    );
     saveStoredIssues(MOCK_ISSUES);
     setClockOffsetHours(0);
     return [...MOCK_ISSUES];
