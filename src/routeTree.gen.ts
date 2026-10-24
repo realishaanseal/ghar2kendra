@@ -11,11 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RadarRouteImport } from './routes/radar'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
 import { Route as ApiCompareProofRouteImport } from './routes/api/compare-proof'
+import { Route as ApiExplainPatternRouteImport } from './routes/api/explain-pattern'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiReverseGeocodeRouteImport } from './routes/api/reverse-geocode'
 import { Route as MemoryIndexRouteImport } from './routes/memory.index'
@@ -34,6 +36,11 @@ const IndexRoute = IndexRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -59,6 +66,11 @@ const ApiAnalyzeImageRoute = ApiAnalyzeImageRouteImport.update({
 const ApiCompareProofRoute = ApiCompareProofRouteImport.update({
   id: '/api/compare-proof',
   path: '/api/compare-proof',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiExplainPatternRoute = ApiExplainPatternRouteImport.update({
+  id: '/api/explain-pattern',
+  path: '/api/explain-pattern',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiHealthRoute = ApiHealthRouteImport.update({
@@ -110,11 +122,13 @@ const WorkspacesIdRoute = WorkspacesIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
   '/radar': typeof RadarRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/compare-proof': typeof ApiCompareProofRoute
+  '/api/explain-pattern': typeof ApiExplainPatternRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
   '/memory/$assetId': typeof MemoryAssetIdRoute
@@ -128,11 +142,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
   '/radar': typeof RadarRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/compare-proof': typeof ApiCompareProofRoute
+  '/api/explain-pattern': typeof ApiExplainPatternRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
   '/memory/$assetId': typeof MemoryAssetIdRoute
@@ -147,11 +163,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
   '/radar': typeof RadarRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/compare-proof': typeof ApiCompareProofRoute
+  '/api/explain-pattern': typeof ApiExplainPatternRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
   '/memory/$assetId': typeof MemoryAssetIdRoute
@@ -167,11 +185,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/insights'
     | '/login'
     | '/radar'
     | '/report'
     | '/api/analyze-image'
     | '/api/compare-proof'
+    | '/api/explain-pattern'
     | '/api/health'
     | '/api/reverse-geocode'
     | '/memory/$assetId'
@@ -185,11 +205,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin'
+    | '/insights'
     | '/login'
     | '/radar'
     | '/report'
     | '/api/analyze-image'
     | '/api/compare-proof'
+    | '/api/explain-pattern'
     | '/api/health'
     | '/api/reverse-geocode'
     | '/memory/$assetId'
@@ -203,11 +225,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/insights'
     | '/login'
     | '/radar'
     | '/report'
     | '/api/analyze-image'
     | '/api/compare-proof'
+    | '/api/explain-pattern'
     | '/api/health'
     | '/api/reverse-geocode'
     | '/memory/$assetId'
@@ -222,11 +246,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  InsightsRoute: typeof InsightsRoute
   LoginRoute: typeof LoginRoute
   RadarRoute: typeof RadarRoute
   ReportRoute: typeof ReportRoute
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
   ApiCompareProofRoute: typeof ApiCompareProofRoute
+  ApiExplainPatternRoute: typeof ApiExplainPatternRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiReverseGeocodeRoute: typeof ApiReverseGeocodeRoute
   MemoryAssetIdRoute: typeof MemoryAssetIdRoute
@@ -252,6 +278,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -287,6 +320,13 @@ declare module '@tanstack/react-router' {
       path: '/api/compare-proof'
       fullPath: '/api/compare-proof'
       preLoaderRoute: typeof ApiCompareProofRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/explain-pattern': {
+      id: '/api/explain-pattern'
+      path: '/api/explain-pattern'
+      fullPath: '/api/explain-pattern'
+      preLoaderRoute: typeof ApiExplainPatternRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/health': {
@@ -358,11 +398,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  InsightsRoute: InsightsRoute,
   LoginRoute: LoginRoute,
   RadarRoute: RadarRoute,
   ReportRoute: ReportRoute,
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
   ApiCompareProofRoute: ApiCompareProofRoute,
+  ApiExplainPatternRoute: ApiExplainPatternRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiReverseGeocodeRoute: ApiReverseGeocodeRoute,
   MemoryAssetIdRoute: MemoryAssetIdRoute,

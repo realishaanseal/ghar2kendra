@@ -85,3 +85,18 @@ describe("index and scoring", () => {
     expect(bad.grade).toBe("failing");
   });
 });
+
+describe("recurrence counting", () => {
+  it("counts several reports of one failure as a single recurrence", () => {
+    const memory = buildAssetMemory(
+      ASSETS.find((a) => a.id === "AST-RHN-L3")!,
+      ALL,
+      ASSETS,
+      NOW,
+    );
+    // 0322 repaired → 0356 recurrence (repaired) → 0641/0655/0661/0668 are one new failure.
+    expect(memory.stats.reports).toBe(6);
+    expect(memory.stats.recurrences).toBe(2);
+    expect(memory.events.filter((e) => e.type === "recurrence")).toHaveLength(2);
+  });
+});

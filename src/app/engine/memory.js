@@ -55,6 +55,8 @@ export function buildAssetMemory(asset, issues, assets = [asset], now = new Date
   const repairLives = [];
   let lastRepair = null;
   let recurrences = 0;
+  // Several residents often report the same failure before it is fixed again; count it once.
+  let failureCountedSinceRepair = false;
 
   for (const entry of own) {
     const { issue, reported, resolved, verified } = entry;
@@ -62,7 +64,8 @@ export function buildAssetMemory(asset, issues, assets = [asset], now = new Date
       issue.recurrenceOf ||
       (lastRepair && daysBetween(lastRepair.resolved, reported) <= RECURRENCE_WINDOW_DAYS ? lastRepair.issue.id : null);
 
-    if (recurrenceOf && lastRepair) {
+    if (recurrenceOf && lastRepair && !failureCountedSinceRepair) {
+      failureCountedSinceRepair = true;
       recurrences += 1;
       repairLives.push(daysBetween(lastRepair.resolved, reported));
       events.push({
@@ -86,6 +89,7 @@ export function buildAssetMemory(asset, issues, assets = [asset], now = new Date
         note: issue.contractor || issue.resolutionProof || '',
       });
       lastRepair = entry;
+      failureCountedSinceRepair = false;
     }
     if (verified) {
       events.push({
