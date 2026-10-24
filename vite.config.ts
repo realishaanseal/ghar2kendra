@@ -26,7 +26,7 @@ export default defineConfig(({ command }) => ({
     // NITRO_PRESET=node-server instead, for hosts that run a plain Node.js process.
     nitro({
       // Vercel output for builds unless NITRO_PRESET says otherwise; plain local server for `npm run dev`.
-      ...(command === "build" ? { preset: process.env.NITRO_PRESET || "vercel" } : {}),
+      ...(command === "build" ? { preset: process.env["NITRO_PRESET"] || "vercel" } : {}),
       // Bundle every dependency into the function: self-contained, nothing to trace at deploy time.
       noExternals: true,
       rolldownConfig: {

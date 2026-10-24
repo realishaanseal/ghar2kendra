@@ -4,12 +4,12 @@ import { LayoutList, History, Flag, Radar, Briefcase, Network } from 'lucide-rea
 
 // Secondary navigation for the civic modules. Each module adds its entry here.
 const SECTIONS = [
-  { to: '/', label: 'Live Feed', icon: LayoutList, match: (p) => p === '/' },
-  { to: '/memory', label: 'Civic Memory', icon: History, match: (p) => p.startsWith('/memory') },
-  { to: '/insights', label: 'Insights', icon: Network, match: (p) => p.startsWith('/insights') },
-  { to: '/missions', label: 'Missions', icon: Flag, match: (p) => p.startsWith('/missions') },
-  { to: '/radar', label: 'My Radar', icon: Radar, match: (p) => p.startsWith('/radar') },
-  { to: '/workspaces', label: 'Workspaces', icon: Briefcase, match: (p) => p.startsWith('/workspaces') },
+  { tour: 'feed', to: '/', label: 'Live Feed', icon: LayoutList, match: (p) => p === '/' },
+  { tour: 'memory', to: '/memory', label: 'Civic Memory', icon: History, match: (p) => p.startsWith('/memory') },
+  { tour: 'insights', to: '/insights', label: 'Insights', icon: Network, match: (p) => p.startsWith('/insights') },
+  { tour: 'missions', to: '/missions', label: 'Missions', icon: Flag, match: (p) => p.startsWith('/missions') },
+  { tour: 'radar', to: '/radar', label: 'My Radar', icon: Radar, match: (p) => p.startsWith('/radar') },
+  { tour: 'workspaces', to: '/workspaces', label: 'Workspaces', icon: Briefcase, match: (p) => p.startsWith('/workspaces') },
 ];
 
 export default function SectionNav({ isDarkMode }) {
@@ -23,12 +23,13 @@ export default function SectionNav({ isDarkMode }) {
       }`}
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 flex gap-1 overflow-x-auto no-scrollbar">
-        {SECTIONS.map(({ to, label, icon: Icon, match }) => {
+        {SECTIONS.map(({ tour, to, label, icon: Icon, match }) => {
           const active = match(pathname);
           return (
             <Link
               key={to}
               to={to}
+              data-tour={tour}
               className={`flex items-center gap-1.5 whitespace-nowrap px-3 py-2.5 text-xs font-bold border-b-2 transition ${
                 active
                   ? 'border-amber-500 text-amber-600 dark:text-amber-400'
