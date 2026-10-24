@@ -1,0 +1,1 @@
+export{n as component}from"./index-HPCpsI9k.js";

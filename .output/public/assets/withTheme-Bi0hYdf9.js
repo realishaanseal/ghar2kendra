@@ -1,0 +1,1 @@
+import{S as e,y as t}from"./utils-BypgsYmK.js";import{x as n}from"./index-HPCpsI9k.js";import{ThemeContext as r}from"./AppShell-BT69svap.js";var i=e(t(),1),a=n();function o(e){return function(){let t=(0,i.useContext)(r);return(0,a.jsx)(e,{isDarkMode:t})}}export{o as withTheme};
