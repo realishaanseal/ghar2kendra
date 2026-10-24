@@ -19,6 +19,14 @@ import { Link, useNavigate, useLocation } from '@/lib/router-compat';
 import { CITIES } from '../data/mockIssues';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { START_GUIDE_EVENT } from './GuideTour';
+
+// "Er. Rajesh Varma" -> "Er. Rajesh", "Aarav Sharma" -> "Aarav".
+function shortName(name) {
+  if (!name) return 'User';
+  const [first, second] = name.split(' ');
+  return first.endsWith('.') && second ? `${first} ${second}` : first;
+}
 
 export default function Navbar({ isDarkMode, onToggleTheme }) {
   const { currentUser, isLoggedIn, isCitizen, isOfficial, logout } = useAuth();
@@ -48,7 +56,7 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6">
-          <div className="flex items-center justify-between h-16 gap-3">
+          <div className="flex items-center justify-between h-16 gap-2 sm:gap-3">
 
             {/* ================= LEFT: BRANDING ================= */}
             <div className="flex items-center gap-3 sm:gap-4 shrink-0">
@@ -142,6 +150,7 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
               <motion.button
                 whileTap={{ scale: 0.92 }}
                 onClick={onToggleTheme}
+                data-tour="theme"
                 className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl border text-xs font-bold transition shadow-xs cursor-pointer ${
                   isDarkMode
                     ? 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-amber-400'
@@ -226,6 +235,7 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
               {isCitizen && (
                 <Link
                   to="/report"
+                  data-tour="report"
                   className="flex items-center gap-1.5 bg-orange-600 hover:bg-orange-700 text-white text-xs sm:text-sm font-black px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition shadow-lg shadow-orange-500/25 active:scale-95 duration-200 shrink-0"
                 >
                   <PlusCircle className="w-4 h-4" />
@@ -239,6 +249,7 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
                 <div className="relative">
                   <button
                     onClick={() => setShowProfileMenu(!showProfileMenu)}
+                    data-tour="account"
                     className={`flex items-center gap-2 p-1.5 sm:px-3 sm:py-1.5 rounded-2xl border transition shadow-xs cursor-pointer ${
                       isDarkMode
                         ? 'bg-slate-900 hover:bg-slate-800 border-slate-800 text-white'
@@ -250,7 +261,7 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
                     </div>
                     <div className="hidden sm:block text-left">
                       <div className="text-xs font-black truncate max-w-[110px] leading-tight">
-                        {currentUser?.name?.split(' ')[0] || 'User'}
+                        {shortName(currentUser?.name)}
                       </div>
                       <div className="text-[10px] font-semibold text-amber-500 flex items-center gap-1">
                         {isCitizen ? (
@@ -259,7 +270,9 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
                             <span>{currentUser?.karma || 150} Pts</span>
                           </>
                         ) : (
-                          <span className="truncate max-w-[95px]">{currentUser?.designation?.split(' ')[0] || 'Officer'}</span>
+                          <span className="truncate max-w-[120px]" title={currentUser?.designation}>
+                            {currentUser?.designation?.split(' (')[0] || 'Officer'}
+                          </span>
                         )}
                       </div>
                     </div>
@@ -331,6 +344,22 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
 
                         {/* Switch Role or Log Out */}
                         <div className="space-y-1.5">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setShowProfileMenu(false);
+                              window.dispatchEvent(new Event(START_GUIDE_EVENT));
+                            }}
+                            className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${
+                              isDarkMode
+                                ? 'border-slate-700 hover:bg-slate-800 text-slate-300'
+                                : 'border-slate-200 hover:bg-slate-100 text-slate-700'
+                            }`}
+                          >
+                            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                            <span>Show the guide again</span>
+                          </button>
+
                           <Link
                             to="/login"
                             onClick={() => setShowProfileMenu(false)}
@@ -360,6 +389,7 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
                 /* Not Logged In CTA */
                 <Link
                   to="/login"
+                  data-tour="account"
                   className="flex items-center gap-1.5 bg-orange-600 hover:bg-orange-700 text-white text-xs font-black px-3.5 py-2 rounded-xl transition shadow-md shadow-orange-500/20 active:scale-95"
                 >
                   <LogIn className="w-3.5 h-3.5" />

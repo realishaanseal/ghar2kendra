@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import SectionNav from './components/SectionNav';
+import IntroSplash from './components/IntroSplash';
+import GuideTour from './components/GuideTour';
 import 'leaflet/dist/leaflet.css';
 
 export const ThemeContext = React.createContext(true);
@@ -12,6 +14,8 @@ export default function AppShell({ children }) {
   });
 
   const isDarkMode = themeMode === 'dark';
+  const [introDone, setIntroDone] = useState(false);
+  const handleIntroDone = useCallback(() => setIntroDone(true), []);
 
   useEffect(() => {
     localStorage.setItem('civic_theme_mode', themeMode);
@@ -30,6 +34,8 @@ export default function AppShell({ children }) {
           <Navbar isDarkMode={isDarkMode} onToggleTheme={toggleTheme} />
           <SectionNav isDarkMode={isDarkMode} />
           <main className="flex-1">{children}</main>
+          <IntroSplash onDone={handleIntroDone} />
+          <GuideTour isDarkMode={isDarkMode} ready={introDone} />
         </div>
       </ThemeContext.Provider>
     </AuthProvider>
