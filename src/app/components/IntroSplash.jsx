@@ -60,14 +60,14 @@ export default function IntroSplash({ onDone }) {
           >
             {!reduceMotion && (
               <motion.span
-                className="absolute inset-0 rounded-2xl bg-orange-600"
-                initial={{ scale: 1, opacity: 0.55 }}
-                animate={{ scale: 2, opacity: 0 }}
+                className="absolute inset-0 rounded-3xl bg-white"
+                initial={{ scale: 1, opacity: 0.35 }}
+                animate={{ scale: 1.6, opacity: 0 }}
                 transition={{ duration: 1.3, delay: 0.5, ease: 'easeOut' }}
               />
             )}
-            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-orange-600 flex items-center justify-center text-4xl sm:text-5xl shadow-2xl shadow-orange-500/40">
-              🏛️
+            <div className="relative rounded-3xl bg-white px-6 py-4 sm:px-8 sm:py-5 shadow-2xl shadow-black/50">
+              <img src="/brand/g2k-logo.webp" alt="" width="720" height="325" className="h-16 sm:h-20 w-auto" />
             </div>
           </motion.div>
 

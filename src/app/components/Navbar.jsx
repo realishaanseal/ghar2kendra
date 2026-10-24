@@ -63,10 +63,10 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
               {isOfficial ? (
                 /* OFFICIAL MUNICIPAL / PANCHAYAT BRANDING */
                 <Link to="/admin" className="flex items-center gap-2.5 sm:gap-3 group">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-orange-600 flex items-center justify-center text-lg sm:text-xl shadow-lg shadow-rose-500/30 group-hover:scale-105 transition duration-300">
-                    🏛️
+                  <div className="h-9 sm:h-10 px-1.5 sm:px-2 rounded-lg bg-white flex items-center shadow-lg shadow-black/20 group-hover:scale-105 transition duration-300">
+                    <img src="/brand/g2k-logo.webp" alt="Ghar2Kendra" width="720" height="325" className="h-6 sm:h-7 w-auto" />
                   </div>
-                  <div>
+                  <div className="hidden sm:block">
                     <div className="flex items-center gap-1.5 sm:gap-2">
                       <span className={`font-black text-[15px] sm:text-lg tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                         Ghar2Kendra <span className="text-amber-600 dark:text-amber-400">Command</span>
@@ -83,10 +83,10 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
               ) : (
                 /* CITIZEN GRIEVANCE NETWORK BRANDING */
                 <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-orange-600 flex items-center justify-center text-lg sm:text-xl shadow-lg shadow-orange-500/30 group-hover:scale-105 transition duration-300">
-                    🏛️
+                  <div className="h-9 sm:h-10 px-1.5 sm:px-2 rounded-lg bg-white flex items-center shadow-lg shadow-black/20 group-hover:scale-105 transition duration-300">
+                    <img src="/brand/g2k-logo.webp" alt="Ghar2Kendra" width="720" height="325" className="h-6 sm:h-7 w-auto" />
                   </div>
-                  <div>
+                  <div className="hidden sm:block">
                     <div className="flex items-center gap-1.5 sm:gap-2">
                       <span className={`font-black text-[15px] sm:text-lg tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                         Ghar<span className="text-amber-600 dark:text-amber-400">2Kendra</span>
