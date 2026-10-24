@@ -1,1 +1,0 @@
-export{r as component}from"./index-9afJNziX.js";
