@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import SectionNav from './components/SectionNav';
 import 'leaflet/dist/leaflet.css';
 
 export const ThemeContext = React.createContext(true);
@@ -27,6 +28,7 @@ export default function AppShell({ children }) {
       <ThemeContext.Provider value={isDarkMode}>
         <div className="min-h-screen font-sans flex flex-col bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
           <Navbar isDarkMode={isDarkMode} onToggleTheme={toggleTheme} />
+          <SectionNav isDarkMode={isDarkMode} />
           <main className="flex-1">{children}</main>
         </div>
       </ThemeContext.Provider>

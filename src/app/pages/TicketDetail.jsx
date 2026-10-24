@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from '@/lib/router-compat';
 import { MOCK_ISSUES } from '../data/mockIssues';
 import { CivicAPI } from '../api/supabaseClient';
+import { getArchivedTicket } from '../api/memoryStore';
+import LocationMemoryCard from '../components/civic/LocationMemoryCard';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -15,11 +17,12 @@ export default function TicketDetail({ isDarkMode = true }) {
   const navigate = useNavigate();
 
   // Find issue by id or fallback to first
-  const initialIssue = MOCK_ISSUES.find((item) => item.id === id) || MOCK_ISSUES[0];
+  const initialIssue = MOCK_ISSUES.find((item) => item.id === id) || getArchivedTicket(id) || MOCK_ISSUES[0];
   const [issue, setIssue] = useState(initialIssue);
 
   useEffect(() => {
-    CivicAPI.getIssueById(id).then((found) => {
+    CivicAPI.getIssueById(id).then((live) => {
+      const found = live || getArchivedTicket(id);
       if (found) {
         setIssue(found);
         setUpvotes(found.upvotes || 0);
@@ -541,6 +544,9 @@ export default function TicketDetail({ isDarkMode = true }) {
 
           {/* Right Column: Actions, Timeline & Authority */}
           <div className="space-y-6">
+
+            {/* Civic Memory: history of the asset this ticket sits on */}
+            <LocationMemoryCard issue={issue} isDarkMode={isDarkMode} />
 
             {/* Action Bar (Upvote & Share) */}
             <div className={`rounded-3xl border p-5 shadow-xl space-y-3 ${

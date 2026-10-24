@@ -1,0 +1,42 @@
+import React from 'react';
+import { Link, useLocation } from '@/lib/router-compat';
+import { LayoutList, History } from 'lucide-react';
+
+// Secondary navigation for the civic modules. Each module adds its entry here.
+const SECTIONS = [
+  { to: '/', label: 'Live Feed', icon: LayoutList, match: (p) => p === '/' },
+  { to: '/memory', label: 'Civic Memory', icon: History, match: (p) => p.startsWith('/memory') },
+];
+
+export default function SectionNav({ isDarkMode }) {
+  const { pathname } = useLocation();
+
+  return (
+    <nav
+      aria-label="Civic modules"
+      className={`border-b transition-colors ${
+        isDarkMode ? 'bg-ink/90 border-slate-800' : 'bg-paper-raised/90 border-amber-200/70'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 flex gap-1 overflow-x-auto no-scrollbar">
+        {SECTIONS.map(({ to, label, icon: Icon, match }) => {
+          const active = match(pathname);
+          return (
+            <Link
+              key={to}
+              to={to}
+              className={`flex items-center gap-1.5 whitespace-nowrap px-3 py-2.5 text-xs font-bold border-b-2 transition ${
+                active
+                  ? 'border-amber-500 text-amber-600 dark:text-amber-400'
+                  : `border-transparent ${isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`
+              }`}
+            >
+              <Icon className="w-3.5 h-3.5" />
+              {label}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
