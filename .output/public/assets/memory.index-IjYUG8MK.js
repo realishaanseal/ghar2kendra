@@ -1,0 +1,1 @@
+export{s as component}from"./index-9afJNziX.js";
