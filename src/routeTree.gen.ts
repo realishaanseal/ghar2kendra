@@ -16,6 +16,8 @@ import { Route as ReportRouteImport } from './routes/report'
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiReverseGeocodeRouteImport } from './routes/api/reverse-geocode'
+import { Route as MemoryIndexRouteImport } from './routes/memory.index'
+import { Route as MemoryAssetIdRouteImport } from './routes/memory.$assetId'
 import { Route as TicketIdRouteImport } from './routes/ticket.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +55,16 @@ const ApiReverseGeocodeRoute = ApiReverseGeocodeRouteImport.update({
   path: '/api/reverse-geocode',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MemoryIndexRoute = MemoryIndexRouteImport.update({
+  id: '/memory/',
+  path: '/memory/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemoryAssetIdRoute = MemoryAssetIdRouteImport.update({
+  id: '/memory/$assetId',
+  path: '/memory/$assetId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TicketIdRoute = TicketIdRouteImport.update({
   id: '/ticket/$id',
   path: '/ticket/$id',
@@ -67,7 +79,9 @@ export interface FileRoutesByFullPath {
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
+  '/memory/$assetId': typeof MemoryAssetIdRoute
   '/ticket/$id': typeof TicketIdRoute
+  '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -77,7 +91,9 @@ export interface FileRoutesByTo {
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
+  '/memory/$assetId': typeof MemoryAssetIdRoute
   '/ticket/$id': typeof TicketIdRoute
+  '/memory': typeof MemoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -88,7 +104,9 @@ export interface FileRoutesById {
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
+  '/memory/$assetId': typeof MemoryAssetIdRoute
   '/ticket/$id': typeof TicketIdRoute
+  '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -100,7 +118,9 @@ export interface FileRouteTypes {
     | '/api/analyze-image'
     | '/api/health'
     | '/api/reverse-geocode'
+    | '/memory/$assetId'
     | '/ticket/$id'
+    | '/memory/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -110,7 +130,9 @@ export interface FileRouteTypes {
     | '/api/analyze-image'
     | '/api/health'
     | '/api/reverse-geocode'
+    | '/memory/$assetId'
     | '/ticket/$id'
+    | '/memory'
   id:
     | '__root__'
     | '/'
@@ -120,7 +142,9 @@ export interface FileRouteTypes {
     | '/api/analyze-image'
     | '/api/health'
     | '/api/reverse-geocode'
+    | '/memory/$assetId'
     | '/ticket/$id'
+    | '/memory/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -131,7 +155,9 @@ export interface RootRouteChildren {
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiReverseGeocodeRoute: typeof ApiReverseGeocodeRoute
+  MemoryAssetIdRoute: typeof MemoryAssetIdRoute
   TicketIdRoute: typeof TicketIdRoute
+  MemoryIndexRoute: typeof MemoryIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -185,6 +211,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiReverseGeocodeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/memory/': {
+      id: '/memory/'
+      path: '/memory'
+      fullPath: '/memory/'
+      preLoaderRoute: typeof MemoryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/memory/$assetId': {
+      id: '/memory/$assetId'
+      path: '/memory/$assetId'
+      fullPath: '/memory/$assetId'
+      preLoaderRoute: typeof MemoryAssetIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ticket/$id': {
       id: '/ticket/$id'
       path: '/ticket/$id'
@@ -203,7 +243,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiReverseGeocodeRoute: ApiReverseGeocodeRoute,
+  MemoryAssetIdRoute: MemoryAssetIdRoute,
   TicketIdRoute: TicketIdRoute,
+  MemoryIndexRoute: MemoryIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

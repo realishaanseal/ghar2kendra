@@ -156,6 +156,7 @@ export async function reportIssue(issuePayload) {
     imageUrl: issuePayload.imageUrl || 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=800&auto=format&fit=crop&q=80',
     resolvedPhotoUrl: null,
     createdAt: 'Just now',
+    reportedAt: new Date().toISOString(),
     timelineStep: 1,
     reportedBy: issuePayload.reportedBy || 'Citizen',
     timeline: [
@@ -314,6 +315,7 @@ export async function verifyResolution(issueId, confirmed = true, rating = 5, co
   if (idx !== -1) {
     if (confirmed) {
       issues[idx].status = 'verified';
+      issues[idx].verifiedAt = new Date().toISOString();
       issues[idx].timelineStep = 4;
       issues[idx].timeline = issues[idx].timeline || [];
       issues[idx].timeline.push({
@@ -630,6 +632,7 @@ export const admin = {
       issues[idx].status = 'resolved';
       issues[idx].resolvedPhotoUrl = resolvedPhotoUrl;
       issues[idx].resolutionProof = resolutionProof || 'Contractor work verified on ground.';
+      issues[idx].resolvedAt = new Date().toISOString();
       issues[idx].slaRemainingHours = 0;
       issues[idx].timelineStep = 4;
       issues[idx].timeline = issues[idx].timeline || [];
