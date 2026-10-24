@@ -19,6 +19,8 @@ import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiReverseGeocodeRouteImport } from './routes/api/reverse-geocode'
 import { Route as MemoryIndexRouteImport } from './routes/memory.index'
 import { Route as MemoryAssetIdRouteImport } from './routes/memory.$assetId'
+import { Route as MissionsIndexRouteImport } from './routes/missions.index'
+import { Route as MissionsIdRouteImport } from './routes/missions.$id'
 import { Route as TicketIdRouteImport } from './routes/ticket.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -71,6 +73,16 @@ const MemoryAssetIdRoute = MemoryAssetIdRouteImport.update({
   path: '/memory/$assetId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MissionsIndexRoute = MissionsIndexRouteImport.update({
+  id: '/missions/',
+  path: '/missions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissionsIdRoute = MissionsIdRouteImport.update({
+  id: '/missions/$id',
+  path: '/missions/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TicketIdRoute = TicketIdRouteImport.update({
   id: '/ticket/$id',
   path: '/ticket/$id',
@@ -87,8 +99,10 @@ export interface FileRoutesByFullPath {
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
   '/memory/$assetId': typeof MemoryAssetIdRoute
+  '/missions/$id': typeof MissionsIdRoute
   '/ticket/$id': typeof TicketIdRoute
   '/memory/': typeof MemoryIndexRoute
+  '/missions/': typeof MissionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -100,8 +114,10 @@ export interface FileRoutesByTo {
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
   '/memory/$assetId': typeof MemoryAssetIdRoute
+  '/missions/$id': typeof MissionsIdRoute
   '/ticket/$id': typeof TicketIdRoute
   '/memory': typeof MemoryIndexRoute
+  '/missions': typeof MissionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -114,8 +130,10 @@ export interface FileRoutesById {
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
   '/memory/$assetId': typeof MemoryAssetIdRoute
+  '/missions/$id': typeof MissionsIdRoute
   '/ticket/$id': typeof TicketIdRoute
   '/memory/': typeof MemoryIndexRoute
+  '/missions/': typeof MissionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -129,8 +147,10 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/api/reverse-geocode'
     | '/memory/$assetId'
+    | '/missions/$id'
     | '/ticket/$id'
     | '/memory/'
+    | '/missions/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -142,8 +162,10 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/api/reverse-geocode'
     | '/memory/$assetId'
+    | '/missions/$id'
     | '/ticket/$id'
     | '/memory'
+    | '/missions'
   id:
     | '__root__'
     | '/'
@@ -155,8 +177,10 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/api/reverse-geocode'
     | '/memory/$assetId'
+    | '/missions/$id'
     | '/ticket/$id'
     | '/memory/'
+    | '/missions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -169,8 +193,10 @@ export interface RootRouteChildren {
   ApiHealthRoute: typeof ApiHealthRoute
   ApiReverseGeocodeRoute: typeof ApiReverseGeocodeRoute
   MemoryAssetIdRoute: typeof MemoryAssetIdRoute
+  MissionsIdRoute: typeof MissionsIdRoute
   TicketIdRoute: typeof TicketIdRoute
   MemoryIndexRoute: typeof MemoryIndexRoute
+  MissionsIndexRoute: typeof MissionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -245,6 +271,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MemoryAssetIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/missions/': {
+      id: '/missions/'
+      path: '/missions'
+      fullPath: '/missions/'
+      preLoaderRoute: typeof MissionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/missions/$id': {
+      id: '/missions/$id'
+      path: '/missions/$id'
+      fullPath: '/missions/$id'
+      preLoaderRoute: typeof MissionsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ticket/$id': {
       id: '/ticket/$id'
       path: '/ticket/$id'
@@ -265,8 +305,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiHealthRoute: ApiHealthRoute,
   ApiReverseGeocodeRoute: ApiReverseGeocodeRoute,
   MemoryAssetIdRoute: MemoryAssetIdRoute,
+  MissionsIdRoute: MissionsIdRoute,
   TicketIdRoute: TicketIdRoute,
   MemoryIndexRoute: MemoryIndexRoute,
+  MissionsIndexRoute: MissionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
