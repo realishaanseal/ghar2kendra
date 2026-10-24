@@ -6,6 +6,7 @@ import { getArchivedTicket } from '../api/memoryStore';
 import LocationMemoryCard from '../components/civic/LocationMemoryCard';
 import ProofOfResolutionPanel from '../components/civic/ProofOfResolutionPanel';
 import RecurrenceBanner from '../components/civic/RecurrenceBanner';
+import MissionLinkCard from '../components/civic/MissionLinkCard';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -457,6 +458,7 @@ export default function TicketDetail({ isDarkMode = true }) {
 
             {/* Civic Memory: history of the asset this ticket sits on */}
             <LocationMemoryCard issue={issue} isDarkMode={isDarkMode} />
+            <MissionLinkCard issue={issue} isDarkMode={isDarkMode} />
 
             {/* Action Bar (Upvote & Share) */}
             <div className={`rounded-3xl border p-5 shadow-xl space-y-3 ${

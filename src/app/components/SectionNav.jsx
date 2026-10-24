@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from '@/lib/router-compat';
-import { LayoutList, History } from 'lucide-react';
+import { LayoutList, History, Flag } from 'lucide-react';
 
 // Secondary navigation for the civic modules. Each module adds its entry here.
 const SECTIONS = [
   { to: '/', label: 'Live Feed', icon: LayoutList, match: (p) => p === '/' },
   { to: '/memory', label: 'Civic Memory', icon: History, match: (p) => p.startsWith('/memory') },
+  { to: '/missions', label: 'Missions', icon: Flag, match: (p) => p.startsWith('/missions') },
 ];
 
 export default function SectionNav({ isDarkMode }) {

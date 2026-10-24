@@ -21,7 +21,7 @@ export const supabase = isSupabaseConfigured
 // =====================================================================
 // 2. OFFLINE / DEMO REACTIVE STORE (Zero-Latency Local Persistence)
 // =====================================================================
-const LOCAL_STORAGE_KEY = 'civic_connect_issues_v2';
+const LOCAL_STORAGE_KEY = 'civic_connect_issues_v3';
 const CLOCK_OFFSET_KEY = 'civic_connect_clock_offset_hrs';
 
 function getStoredIssues() {
