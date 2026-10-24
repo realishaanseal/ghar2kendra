@@ -293,6 +293,18 @@ export async function getIssue(issueId) {
 }
 
 /**
+ * Merge extra fields into a stored issue (used by the civic modules for links and metadata).
+ */
+export function updateIssue(issueId, patch) {
+  const issues = getStoredIssues();
+  const idx = issues.findIndex((i) => i.id === issueId);
+  if (idx === -1) return null;
+  issues[idx] = { ...issues[idx], ...patch };
+  saveStoredIssues(issues);
+  return issues[idx];
+}
+
+/**
  * Citizen Ground Reality Verification: Confirm resolution or dispute incomplete work.
  */
 export async function verifyResolution(issueId, confirmed = true, rating = 5, comment = '') {

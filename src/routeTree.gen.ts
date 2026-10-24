@@ -14,6 +14,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
+import { Route as ApiCompareProofRouteImport } from './routes/api/compare-proof'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiReverseGeocodeRouteImport } from './routes/api/reverse-geocode'
 import { Route as MemoryIndexRouteImport } from './routes/memory.index'
@@ -43,6 +44,11 @@ const ReportRoute = ReportRouteImport.update({
 const ApiAnalyzeImageRoute = ApiAnalyzeImageRouteImport.update({
   id: '/api/analyze-image',
   path: '/api/analyze-image',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCompareProofRoute = ApiCompareProofRouteImport.update({
+  id: '/api/compare-proof',
+  path: '/api/compare-proof',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiHealthRoute = ApiHealthRouteImport.update({
@@ -77,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
+  '/api/compare-proof': typeof ApiCompareProofRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
   '/memory/$assetId': typeof MemoryAssetIdRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
+  '/api/compare-proof': typeof ApiCompareProofRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
   '/memory/$assetId': typeof MemoryAssetIdRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
+  '/api/compare-proof': typeof ApiCompareProofRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
   '/memory/$assetId': typeof MemoryAssetIdRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/report'
     | '/api/analyze-image'
+    | '/api/compare-proof'
     | '/api/health'
     | '/api/reverse-geocode'
     | '/memory/$assetId'
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/report'
     | '/api/analyze-image'
+    | '/api/compare-proof'
     | '/api/health'
     | '/api/reverse-geocode'
     | '/memory/$assetId'
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/report'
     | '/api/analyze-image'
+    | '/api/compare-proof'
     | '/api/health'
     | '/api/reverse-geocode'
     | '/memory/$assetId'
@@ -153,6 +165,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ReportRoute: typeof ReportRoute
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
+  ApiCompareProofRoute: typeof ApiCompareProofRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiReverseGeocodeRoute: typeof ApiReverseGeocodeRoute
   MemoryAssetIdRoute: typeof MemoryAssetIdRoute
@@ -195,6 +208,13 @@ declare module '@tanstack/react-router' {
       path: '/api/analyze-image'
       fullPath: '/api/analyze-image'
       preLoaderRoute: typeof ApiAnalyzeImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/compare-proof': {
+      id: '/api/compare-proof'
+      path: '/api/compare-proof'
+      fullPath: '/api/compare-proof'
+      preLoaderRoute: typeof ApiCompareProofRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/health': {
@@ -241,6 +261,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ReportRoute: ReportRoute,
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
+  ApiCompareProofRoute: ApiCompareProofRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiReverseGeocodeRoute: ApiReverseGeocodeRoute,
   MemoryAssetIdRoute: MemoryAssetIdRoute,

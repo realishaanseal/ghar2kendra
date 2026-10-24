@@ -4,6 +4,8 @@ import { MOCK_ISSUES } from '../data/mockIssues';
 import { CivicAPI } from '../api/supabaseClient';
 import { getArchivedTicket } from '../api/memoryStore';
 import LocationMemoryCard from '../components/civic/LocationMemoryCard';
+import ProofOfResolutionPanel from '../components/civic/ProofOfResolutionPanel';
+import RecurrenceBanner from '../components/civic/RecurrenceBanner';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -26,9 +28,6 @@ export default function TicketDetail({ isDarkMode = true }) {
       if (found) {
         setIssue(found);
         setUpvotes(found.upvotes || 0);
-        if (found.status === 'verified') {
-          setIsVerified(true);
-        }
       }
     });
 
@@ -44,9 +43,6 @@ export default function TicketDetail({ isDarkMode = true }) {
   // Is this issue actually marked resolved with photo proof?
   const isResolved = (issue.status === 'resolved' || issue.status === 'verified') && Boolean(issue.resolvedPhotoUrl);
 
-  // Interactive inspection states
-  const [isVerified, setIsVerified] = useState(isResolved);
-  const [isDisputed, setIsDisputed] = useState(false);
   const [showKarmaModal, setShowKarmaModal] = useState(false);
   const [upvotes, setUpvotes] = useState(issue.upvotes);
   const [hasUpvoted, setHasUpvoted] = useState(false);
@@ -80,14 +76,9 @@ export default function TicketDetail({ isDarkMode = true }) {
     }
   };
 
-  const handleConfirmFix = async () => {
-    setIsVerified(true);
-    setIsDisputed(false);
+  // Celebrate an eligible "it's fixed" attestation. Closing the ticket is the reviewer's job.
+  const handleConfirmFix = () => {
     setShowKarmaModal(true);
-
-    if (issue?.id) {
-      await CivicAPI.verifyIssueResolution(issue.id);
-    }
 
     // Fire Confetti Cannon!
     confetti({
@@ -96,11 +87,6 @@ export default function TicketDetail({ isDarkMode = true }) {
       origin: { y: 0.6 },
       colors: ['#D9982E', '#3C8F78', '#4A7BA6', '#C2463A', '#8A6A9E']
     });
-  };
-
-  const handleDispute = () => {
-    setIsDisputed(true);
-    setIsVerified(false);
   };
 
   const handleAddComment = (e) => {
@@ -206,6 +192,9 @@ export default function TicketDetail({ isDarkMode = true }) {
                 <span>{issue.address}</span>
               </p>
             </motion.div>
+
+            {/* Recurrence link to an earlier repair at the same spot */}
+            <RecurrenceBanner issue={issue} isDarkMode={isDarkMode} />
 
             {/* VISUAL EVIDENCE SECTION */}
             <div className="space-y-3">
@@ -393,88 +382,9 @@ export default function TicketDetail({ isDarkMode = true }) {
               )}
             </div>
 
-            {/* CITIZEN VERIFICATION ACTION CARD (Only if issue is resolved!) */}
+            {/* PROOF-OF-RESOLUTION: resident quorum + human review (only once a fix is claimed) */}
             {isResolved && (
-              <motion.div
-                layout
-                className={`p-6 sm:p-7 rounded-3xl border transition-all duration-300 shadow-2xl ${
-                  isVerified
-                    ? !isDarkMode
-                      ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
-                      : 'bg-gradient-to-br from-emerald-950/40 via-ink-raised to-ink border-emerald-500/50 text-white'
-                    : isDisputed
-                    ? !isDarkMode
-                      ? 'bg-rose-50 border-rose-300 text-rose-950'
-                      : 'bg-gradient-to-br from-rose-950/40 via-ink-raised to-ink border-rose-500/50 text-white'
-                    : !isDarkMode
-                      ? 'bg-white border-amber-300 text-slate-900 shadow-amber-950/5'
-                      : 'bg-gradient-to-br from-amber-950/30 via-ink-raised to-ink border-amber-500/40 text-white'
-                }`}
-              >
-                <div className="flex items-start gap-4">
-                  <div className={`w-13 h-13 rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${
-                    isVerified
-                      ? 'bg-emerald-600 text-white shadow-emerald-600/30'
-                      : isDisputed
-                      ? 'bg-rose-600 text-white shadow-rose-600/30'
-                      : 'bg-orange-600 hover:bg-orange-700 text-white shadow-orange-500/30'
-                  }`}>
-                    {isVerified ? (
-                      <CheckCircle2 className="w-7 h-7" />
-                    ) : isDisputed ? (
-                      <AlertTriangle className="w-7 h-7" />
-                    ) : (
-                      <UserCheck className="w-7 h-7" />
-                    )}
-                  </div>
-
-                  <div className="flex-1">
-                    <h3 className={`text-lg font-black ${!isDarkMode ? 'text-slate-900' : 'text-white'}`}>
-                      {isVerified
-                        ? 'Fix Verified & Signed by Citizen!'
-                        : isDisputed
-                        ? 'Work Disputed: Escalated to Executive Engineer'
-                        : 'Citizen Ground Reality Verification'}
-                    </h3>
-
-                    <p className={`text-xs mt-1.5 leading-relaxed font-normal ${
-                      !isDarkMode ? 'text-slate-600' : 'text-slate-300'
-                    }`}>
-                      {isVerified
-                        ? 'Thank you! Your verification ensures municipal funds were spent honestly on ground. +50 Karma Points credited.'
-                        : isDisputed
-                        ? 'Dispute logged. A senior third-party auditor will re-inspect the location within 24 hours. Contractor payment held.'
-                        : 'The contractor has uploaded proof of completion above. Inspect both photos. Has the problem been completely fixed on the street?'}
-                    </p>
-
-                    {!isVerified && !isDisputed && (
-                      <div className="flex items-center gap-3 mt-5 flex-wrap">
-                        <motion.button
-                          whileTap={{ scale: 0.94 }}
-                          onClick={handleConfirmFix}
-                          className="bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs px-5 py-3 rounded-xl shadow-lg shadow-emerald-600/30 transition flex items-center gap-2 cursor-pointer"
-                        >
-                          <Check className="w-4 h-4 stroke-[3]" />
-                          <span>Confirm Fix is Complete (+50 Pts)</span>
-                        </motion.button>
-
-                        <motion.button
-                          whileTap={{ scale: 0.94 }}
-                          onClick={handleDispute}
-                          className={`font-bold text-xs px-4 py-3 rounded-xl transition flex items-center gap-2 cursor-pointer border ${
-                            !isDarkMode
-                              ? 'bg-white hover:bg-rose-50 text-rose-600 border-rose-300'
-                              : 'bg-slate-900 hover:bg-rose-950/40 text-rose-400 border-rose-500/30'
-                          }`}
-                        >
-                          <ShieldAlert className="w-4 h-4" />
-                          <span>Dispute / Incomplete Work</span>
-                        </motion.button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
+              <ProofOfResolutionPanel issue={issue} isDarkMode={isDarkMode} onAttested={handleConfirmFix} />
             )}
 
             {/* Community Live Discussion */}
