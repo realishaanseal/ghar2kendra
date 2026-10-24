@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from '@/lib/router-compat';
-import { LayoutList, History, Flag, Radar } from 'lucide-react';
+import { LayoutList, History, Flag, Radar, Briefcase } from 'lucide-react';
 
 // Secondary navigation for the civic modules. Each module adds its entry here.
 const SECTIONS = [
@@ -8,6 +8,7 @@ const SECTIONS = [
   { to: '/memory', label: 'Civic Memory', icon: History, match: (p) => p.startsWith('/memory') },
   { to: '/missions', label: 'Missions', icon: Flag, match: (p) => p.startsWith('/missions') },
   { to: '/radar', label: 'My Radar', icon: Radar, match: (p) => p.startsWith('/radar') },
+  { to: '/workspaces', label: 'Workspaces', icon: Briefcase, match: (p) => p.startsWith('/workspaces') },
 ];
 
 export default function SectionNav({ isDarkMode }) {
