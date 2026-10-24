@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
@@ -18,6 +19,11 @@ import { Route as ApiReverseGeocodeRouteImport } from './routes/api/reverse-geoc
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReportRoute = ReportRouteImport.update({
@@ -43,6 +49,7 @@ const ApiReverseGeocodeRoute = ApiReverseGeocodeRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/health': typeof ApiHealthRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/health': typeof ApiHealthRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/health': typeof ApiHealthRoute
@@ -67,6 +76,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/report'
     | '/api/analyze-image'
     | '/api/health'
@@ -74,6 +84,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
     | '/report'
     | '/api/analyze-image'
     | '/api/health'
@@ -81,6 +92,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/login'
     | '/report'
     | '/api/analyze-image'
     | '/api/health'
@@ -89,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   ReportRoute: typeof ReportRoute
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
   ApiHealthRoute: typeof ApiHealthRoute
@@ -102,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/report': {
@@ -137,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   ReportRoute: ReportRoute,
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
   ApiHealthRoute: ApiHealthRoute,
