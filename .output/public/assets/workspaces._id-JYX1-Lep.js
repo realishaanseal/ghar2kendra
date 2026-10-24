@@ -1,0 +1,1 @@
+export{t as component}from"./index-C1tXH-1H.js";
