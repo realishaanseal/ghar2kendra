@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as RadarRouteImport } from './routes/radar'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
 import { Route as ApiCompareProofRouteImport } from './routes/api/compare-proof'
@@ -36,6 +37,11 @@ const AdminRoute = AdminRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RadarRoute = RadarRouteImport.update({
+  id: '/radar',
+  path: '/radar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReportRoute = ReportRouteImport.update({
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
+  '/radar': typeof RadarRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/compare-proof': typeof ApiCompareProofRoute
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
+  '/radar': typeof RadarRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/compare-proof': typeof ApiCompareProofRoute
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
+  '/radar': typeof RadarRoute
   '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/compare-proof': typeof ApiCompareProofRoute
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/login'
+    | '/radar'
     | '/report'
     | '/api/analyze-image'
     | '/api/compare-proof'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/login'
+    | '/radar'
     | '/report'
     | '/api/analyze-image'
     | '/api/compare-proof'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/login'
+    | '/radar'
     | '/report'
     | '/api/analyze-image'
     | '/api/compare-proof'
@@ -187,6 +199,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   LoginRoute: typeof LoginRoute
+  RadarRoute: typeof RadarRoute
   ReportRoute: typeof ReportRoute
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
   ApiCompareProofRoute: typeof ApiCompareProofRoute
@@ -220,6 +233,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/radar': {
+      id: '/radar'
+      path: '/radar'
+      fullPath: '/radar'
+      preLoaderRoute: typeof RadarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/report': {
@@ -299,6 +319,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   LoginRoute: LoginRoute,
+  RadarRoute: RadarRoute,
   ReportRoute: ReportRoute,
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
   ApiCompareProofRoute: ApiCompareProofRoute,
