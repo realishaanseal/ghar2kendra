@@ -36,6 +36,21 @@ curl https://YOUR-APP.vercel.app/api/health   # {"ok":true,"ai":true,...}
 
 Then open `/admin`, click **Reset demo data**, and follow `docs/DEMO.md`.
 
+## Plain Node.js hosts (SDSLabs portal, VPS, etc.)
+
+The same app also builds as a standalone Node.js server, for hosts that run one long-lived process instead of Vercel Functions:
+
+```bash
+npm install
+npm run build:node   # writes .output/ (Nitro node-server preset)
+npm start            # node .output/server/index.mjs
+```
+
+- **Stack:** Node.js 22.13+ (Vite 8 needs a recent Node to build; the built server is self-contained and needs no `node_modules`).
+- **Port:** the server listens on `PORT` (default 3000) and `HOST` (default all interfaces). Set `PORT` to whatever the host expects.
+- **Environment:** same variables as above. `GEMINI_API_KEY` is read at runtime; `VITE_*` values must be set before `npm run build:node`.
+- One process serves the pages, static assets and every `/api/*` route, so it counts as a single web app.
+
 ## Limits to know
 
 - **Upload size:** Vercel Functions accept request bodies up to 4.5 MB. The browser downsizes photos to 1600 px JPEG before upload, and the API rejects anything over 4 MB.

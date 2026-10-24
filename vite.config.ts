@@ -21,11 +21,12 @@ export default defineConfig(({ command }) => ({
     tailwindcss(),
     // src/server.ts wraps TanStack Start's server entry with an SSR error page.
     tanstackStart({ server: { entry: "server" } }),
-    // Deploy target: Vercel. The build writes .vercel/output (Build Output API): static
-    // assets plus one function that serves SSR and the /api routes.
+    // Default deploy target: Vercel. The build writes .vercel/output (Build Output API): static
+    // assets plus one function that serves SSR and the /api routes. `npm run build:node` sets
+    // NITRO_PRESET=node-server instead, for hosts that run a plain Node.js process.
     nitro({
-      // Vercel output for builds; plain local server for `npm run dev`.
-      ...(command === "build" ? { preset: "vercel" } : {}),
+      // Vercel output for builds unless NITRO_PRESET says otherwise; plain local server for `npm run dev`.
+      ...(command === "build" ? { preset: process.env.NITRO_PRESET || "vercel" } : {}),
       // Bundle every dependency into the function: self-contained, nothing to trace at deploy time.
       noExternals: true,
       rolldownConfig: {
