@@ -5,9 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Ghar2Kendra design system — "civic ledger".
- * Warm graphite ink + paper, marigold as the single signal colour,
- * terracotta / peacock green / sindoor red as status tones.
+ * Ghar2Kendra design system — two tones.
+ * Graphite for the ground, marigold for what matters. Orange is re-pointed to
+ * marigold, green and teal to a warm sand (settled / done), and sindoor red is
+ * kept for danger only.
  * The legacy palette names used across the pages (slate, amber, orange,
  * emerald, rose, teal) are re-pointed here so every screen inherits the brand.
  */
@@ -24,63 +25,63 @@
   --color-black: oklch(0.12 0.006 65);
 
   /* warm graphite */
-  --color-slate-50: oklch(0.977 0.006 85);
-  --color-slate-100: oklch(0.952 0.008 84);
-  --color-slate-200: oklch(0.905 0.01 80);
-  --color-slate-300: oklch(0.83 0.012 78);
-  --color-slate-400: oklch(0.69 0.013 75);
-  --color-slate-500: oklch(0.56 0.012 72);
-  --color-slate-600: oklch(0.45 0.011 70);
-  --color-slate-700: oklch(0.345 0.01 68);
-  --color-slate-800: oklch(0.262 0.009 66);
-  --color-slate-850: oklch(0.232 0.008 65);
-  --color-slate-900: oklch(0.205 0.008 65);
-  --color-slate-950: oklch(0.158 0.007 65);
+  --color-slate-50: #F8F5EF;
+  --color-slate-100: #F3EDE3;
+  --color-slate-200: #E4DDD1;
+  --color-slate-300: #CBC3B6;
+  --color-slate-400: #ABA398;
+  --color-slate-500: #8E877C;
+  --color-slate-600: #6B645A;
+  --color-slate-700: #4A443C;
+  --color-slate-800: #2A251F;
+  --color-slate-850: #231F1A;
+  --color-slate-900: #1D1915;
+  --color-slate-950: #15120F;
 
   /* marigold */
-  --color-amber-50: oklch(0.982 0.018 85);
-  --color-amber-100: oklch(0.955 0.045 84);
-  --color-amber-200: oklch(0.915 0.075 82);
-  --color-amber-300: oklch(0.865 0.11 78);
-  --color-amber-400: oklch(0.81 0.135 72);
-  --color-amber-500: oklch(0.755 0.145 66);
-  --color-amber-600: oklch(0.665 0.14 58);
-  --color-amber-700: oklch(0.56 0.12 52);
-  --color-amber-800: oklch(0.46 0.095 50);
-  --color-amber-900: oklch(0.375 0.075 50);
-  --color-amber-950: oklch(0.26 0.05 50);
+  --color-amber-50: #FDF7EC;
+  --color-amber-100: #FAEBCF;
+  --color-amber-200: #F4D79F;
+  --color-amber-300: #EDC170;
+  --color-amber-400: #E8B04A;
+  --color-amber-500: #E3A33C;
+  --color-amber-600: #C98A27;
+  --color-amber-700: #96600F;
+  --color-amber-800: #7A4A0E;
+  --color-amber-900: #5E390C;
+  --color-amber-950: #3A230A;
 
-  /* terracotta */
-  --color-orange-50: oklch(0.975 0.015 45);
-  --color-orange-100: oklch(0.94 0.035 45);
-  --color-orange-200: oklch(0.88 0.065 44);
-  --color-orange-300: oklch(0.8 0.1 43);
-  --color-orange-400: oklch(0.71 0.125 42);
-  --color-orange-500: oklch(0.645 0.135 40);
-  --color-orange-600: oklch(0.575 0.13 38);
-  --color-orange-700: oklch(0.49 0.11 36);
-  --color-orange-800: oklch(0.41 0.09 35);
-  --color-orange-900: oklch(0.34 0.07 35);
-  --color-orange-950: oklch(0.24 0.045 35);
+  /* orange: same marigold, so every accent is one tone */
+  --color-orange-50: #FDF7EC;
+  --color-orange-100: #FAEBCF;
+  --color-orange-200: #F4D79F;
+  --color-orange-300: #EDC170;
+  --color-orange-400: #E8B04A;
+  --color-orange-500: #E3A33C;
+  --color-orange-600: #C98A27;
+  --color-orange-700: #96600F;
+  --color-orange-800: #7A4A0E;
+  --color-orange-900: #5E390C;
+  --color-orange-950: #3A230A;
 
-  /* peacock green */
-  --color-emerald-50: oklch(0.975 0.015 168);
-  --color-emerald-100: oklch(0.94 0.035 168);
-  --color-emerald-200: oklch(0.88 0.06 168);
-  --color-emerald-300: oklch(0.8 0.085 167);
-  --color-emerald-400: oklch(0.72 0.1 166);
-  --color-emerald-500: oklch(0.645 0.105 165);
-  --color-emerald-600: oklch(0.56 0.095 165);
-  --color-emerald-700: oklch(0.47 0.08 165);
-  --color-emerald-800: oklch(0.39 0.065 165);
-  --color-emerald-900: oklch(0.32 0.05 165);
-  --color-emerald-950: oklch(0.22 0.035 165);
+  /* emerald: warm sand, for settled / verified */
+  --color-emerald-50: #FBF8F2;
+  --color-emerald-100: #F2ECE0;
+  --color-emerald-200: #E6DCC9;
+  --color-emerald-300: #D8CBB3;
+  --color-emerald-400: #CDBFA4;
+  --color-emerald-500: #B3A386;
+  --color-emerald-600: #7A6A4F;
+  --color-emerald-700: #5E5140;
+  --color-emerald-800: #463D31;
+  --color-emerald-900: #332C24;
+  --color-emerald-950: #221D18;
 
-  /* indigo-teal (info) */
-  --color-teal-400: oklch(0.7 0.07 220);
-  --color-teal-500: oklch(0.62 0.08 225);
-  --color-teal-600: oklch(0.54 0.08 228);
-  --color-teal-700: oklch(0.46 0.07 230);
+  /* teal: warm sand (info) */
+  --color-teal-400: #CDBFA4;
+  --color-teal-500: #B3A386;
+  --color-teal-600: #7A6A4F;
+  --color-teal-700: #5E5140;
 
   /* sindoor red */
   --color-rose-50: oklch(0.975 0.015 25);
@@ -98,11 +99,11 @@
   --color-red-600: oklch(0.54 0.16 27);
 
   /* surfaces */
-  --color-ink: oklch(0.172 0.007 65);
-  --color-ink-raised: oklch(0.212 0.008 65);
-  --color-paper: oklch(0.962 0.014 80);
-  --color-paper-raised: oklch(0.982 0.009 82);
-  --color-paper-sunk: oklch(0.928 0.018 78);
+  --color-ink: #15120F;
+  --color-ink-raised: #1D1915;
+  --color-paper: #F6F2EA;
+  --color-paper-raised: #FBF8F3;
+  --color-paper-sunk: #EDE7DB;
 }
 
 @theme inline {
@@ -143,8 +144,8 @@
   --card-foreground: var(--color-slate-950);
   --popover: var(--color-paper-raised);
   --popover-foreground: var(--color-slate-950);
-  --primary: var(--color-amber-600);
-  --primary-foreground: var(--color-white);
+  --primary: var(--color-amber-500);
+  --primary-foreground: var(--color-ink);
   --secondary: var(--color-paper-sunk);
   --secondary-foreground: var(--color-slate-900);
   --muted: var(--color-paper-sunk);
@@ -329,4 +330,57 @@
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/*
+ * Primary actions: marigold with graphite text and a soft bevel. The leading
+ * icon sits in a graphite "chamber" that widens on hover. Applied to the
+ * existing orange/emerald solid buttons, so no page markup changes. Unlayered,
+ * so it wins over the Tailwind utilities on the same element.
+ */
+:is(button, a):is(.bg-orange-600, .bg-emerald-600, .bg-emerald-700) {
+  background-color: var(--color-amber-500);
+  color: var(--color-ink);
+  box-shadow:
+    inset 0 -2px 0 rgb(21 18 15 / 0.18),
+    inset 0 1px 0 rgb(255 255 255 / 0.32);
+  transition:
+    background-color 0.2s,
+    box-shadow 0.3s,
+    transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+:is(button, a):is(.bg-orange-600, .bg-emerald-600, .bg-emerald-700):hover {
+  background-color: var(--color-amber-400);
+  box-shadow:
+    inset 0 -2px 0 rgb(21 18 15 / 0.18),
+    inset 0 1px 0 rgb(255 255 255 / 0.32),
+    0 10px 28px -12px var(--color-amber-500);
+}
+:is(button, a):is(.bg-orange-600, .bg-emerald-600, .bg-emerald-700):active {
+  transform: translateY(1px);
+}
+:is(button, a):is(.bg-orange-600, .bg-emerald-600, .bg-emerald-700):disabled {
+  box-shadow: none;
+}
+:is(button, a):is(.bg-orange-600, .bg-emerald-600, .bg-emerald-700) > svg:first-child {
+  box-sizing: content-box;
+  padding: 5px;
+  margin-block: -5px;
+  border-radius: 8px;
+  background-color: var(--color-ink);
+  color: var(--color-amber-400);
+  transition: padding 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+:is(button, a):is(.bg-orange-600, .bg-emerald-600, .bg-emerald-700):hover > svg:first-child {
+  padding-inline: 9px;
+}
+
+/* White text on a marigold fill fails contrast; use graphite instead. */
+:is(.bg-orange-500, .bg-orange-600, .bg-amber-500, .bg-amber-600).text-white {
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber-500);
+  outline-offset: 2px;
 }

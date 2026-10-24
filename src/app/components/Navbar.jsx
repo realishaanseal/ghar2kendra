@@ -46,7 +46,7 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
   return (
     <>
       {/* Indian Civic Tricolor Accent Bar */}
-      <div className="h-[3px] bg-gradient-to-r from-amber-500 via-white to-emerald-500 w-full shadow-[0_0_12px_rgba(245,158,11,0.5)] z-50 relative" />
+      <div className="h-[3px] bg-gradient-to-r from-[#FF9933] via-white to-[#138808] w-full shadow-[0_0_12px_rgba(245,158,11,0.5)] z-50 relative" />
 
       <header
         className={`sticky top-0 z-50 transition-colors duration-300 border-b shadow-lg backdrop-blur-2xl ${

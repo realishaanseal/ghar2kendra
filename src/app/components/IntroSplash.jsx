@@ -90,7 +90,7 @@ export default function IntroSplash({ onDone }) {
           </motion.p>
 
           <motion.div
-            className="mt-9 h-[3px] w-40 sm:w-56 rounded-full bg-gradient-to-r from-amber-500 via-white to-emerald-500 origin-left shadow-[0_0_12px_rgba(245,158,11,0.5)]"
+            className="mt-9 h-[3px] w-40 sm:w-56 rounded-full bg-gradient-to-r from-[#FF9933] via-white to-[#138808] origin-left shadow-[0_0_12px_rgba(245,158,11,0.5)]"
             initial={reduceMotion ? false : { scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 1.2, delay: 0.95, ease: [0.65, 0, 0.35, 1] }}
