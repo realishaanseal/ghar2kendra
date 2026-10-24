@@ -25,3 +25,29 @@ export async function compareProofPhotos(beforeUrl, afterUrl, category) {
     };
   }
 }
+
+/** Plain-language explanation of a detected pattern, with on-site checks. Falls back to the rule's own text. */
+export async function explainPattern(pattern, issues) {
+  try {
+    const data = await postJson('/api/explain-pattern', {
+      title: pattern.title,
+      hypothesis: pattern.hypothesis,
+      issues: issues.map((i) => ({
+        title: i.title,
+        category: i.category,
+        address: i.address,
+        status: i.status,
+        reported: i.reportedAt || i.createdAt,
+      })),
+    });
+    return { available: true, ...data };
+  } catch (err) {
+    console.warn('explain-pattern unavailable, using rule text', err);
+    return {
+      available: false,
+      explanation: pattern.hypothesis,
+      checks: [pattern.recommendation],
+      caveats: 'Generated from the rule definition because the AI service is offline.',
+    };
+  }
+}

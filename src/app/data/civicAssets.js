@@ -94,6 +94,7 @@ const IMG = {
 export const ARCHIVED_ISSUES = [
   {
     id: 'G2K-2026-0207',
+    reportedBy: 'Aditya Khanna',
     assetId: 'AST-ORR-142',
     title: 'Pothole cluster near Metro Pillar 141',
     category: 'roads',
@@ -115,6 +116,7 @@ export const ARCHIVED_ISSUES = [
   },
   {
     id: 'G2K-2026-0311',
+    reportedBy: 'Pooja Arora',
     assetId: 'AST-ORR-142',
     title: 'Patch washed out after first monsoon rain, crater reopened',
     category: 'roads',
@@ -136,6 +138,7 @@ export const ARCHIVED_ISSUES = [
   },
   {
     id: 'G2K-2026-0322',
+    reportedBy: 'Vikram Seth',
     assetId: 'AST-RHN-L3',
     title: 'Knee-deep waterlogging at Lane 3 junction after rain',
     category: 'water',
@@ -157,6 +160,7 @@ export const ARCHIVED_ISSUES = [
   },
   {
     id: 'G2K-2026-0356',
+    reportedBy: 'Neha Gupta',
     assetId: 'AST-RHN-L3',
     title: 'Roadside drain choked with silt and plastic',
     category: 'waste',
@@ -178,6 +182,7 @@ export const ARCHIVED_ISSUES = [
   },
   {
     id: 'G2K-2026-0118',
+    reportedBy: 'Priya Narang',
     assetId: 'AST-IND-T17',
     title: 'Transformer T-17 sparking during rain',
     category: 'electricity',
@@ -199,6 +204,7 @@ export const ARCHIVED_ISSUES = [
   },
   {
     id: 'G2K-2026-0341',
+    reportedBy: 'Mohit Bhatia',
     assetId: 'AST-LJP-MANDI',
     title: 'Mandi bin overflowing onto footpath',
     category: 'waste',
@@ -220,6 +226,7 @@ export const ARCHIVED_ISSUES = [
   },
   {
     id: 'G2K-2026-0402',
+    reportedBy: 'Imran Qureshi',
     assetId: 'AST-LJP-MANDI',
     title: 'Bin overflowing again, cattle scattering waste',
     category: 'waste',
@@ -241,6 +248,7 @@ export const ARCHIVED_ISSUES = [
   },
   {
     id: 'G2K-2026-0289',
+    reportedBy: 'Ananya Iyer',
     assetId: 'AST-KB-MH4',
     title: 'Manhole MH-4 cover missing on college road',
     category: 'safety',
