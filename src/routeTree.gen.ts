@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReportRouteImport } from './routes/report'
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiReverseGeocodeRouteImport } from './routes/api/reverse-geocode'
@@ -17,6 +18,11 @@ import { Route as ApiReverseGeocodeRouteImport } from './routes/api/reverse-geoc
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAnalyzeImageRoute = ApiAnalyzeImageRouteImport.update({
@@ -37,12 +43,14 @@ const ApiReverseGeocodeRoute = ApiReverseGeocodeRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
@@ -50,18 +58,30 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/report': typeof ReportRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/health': typeof ApiHealthRoute
   '/api/reverse-geocode': typeof ApiReverseGeocodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/analyze-image' | '/api/health' | '/api/reverse-geocode'
+  fullPaths:
+    | '/'
+    | '/report'
+    | '/api/analyze-image'
+    | '/api/health'
+    | '/api/reverse-geocode'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/analyze-image' | '/api/health' | '/api/reverse-geocode'
+  to:
+    | '/'
+    | '/report'
+    | '/api/analyze-image'
+    | '/api/health'
+    | '/api/reverse-geocode'
   id:
     | '__root__'
     | '/'
+    | '/report'
     | '/api/analyze-image'
     | '/api/health'
     | '/api/reverse-geocode'
@@ -69,6 +89,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ReportRoute: typeof ReportRoute
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiReverseGeocodeRoute: typeof ApiReverseGeocodeRoute
@@ -81,6 +102,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/analyze-image': {
@@ -109,6 +137,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ReportRoute: ReportRoute,
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiReverseGeocodeRoute: ApiReverseGeocodeRoute,
